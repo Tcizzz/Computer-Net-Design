@@ -1,2 +1,146 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+class Disk {
+public:
+	Disk() {};
+	~Disk() {};
+	Disk(const Disk &);
+	bool Isempty();
+	void Print();
+	string &Getname() {
+		return D_name;
+	}
+
+private:
+	string D_name, D_size, D_freespace;
+};
+
+Disk::Disk(const Disk & Di) {
+	D_name = Di.D_name;
+	D_size = Di.D_size;
+	D_freespace = Di.D_freespace;
+}
+
+bool Disk::Isempty() {
+	if (D_name == "0"&&D_size == "0"&&D_freespace == "0") {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+	void Disk::Print() {
+		cout << "磁盘名称:" << D_name << "  " << "磁盘大小:" << D_size << "  " << "磁盘剩余空间:" << D_freespace << endl;
+	}
+
+class Catalog {
+public:
+	Catalog();
+	~Catalog();
+	Catalog(const Catalog& Ca);
+	bool Isempty();
+	void Print();
+	string &Getname() {
+		return C_name;
+	}
+private:
+	string C_name, C_time, C_size, C_number;
+};
+
+Catalog::Catalog(const Catalog& Ca) {
+	C_name = Ca.C_name;
+	C_time = Ca.C_time;
+	C_size = Ca.C_size;
+	C_number = Ca.C_number;
+}
+
+bool Catalog::Isempty() {
+	if (C_name == "0"&&C_time == "0"&&C_size == "0"&&C_number == "0") {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void Catalog::Print() {
+	cout << "目录名称:" << C_name << "  " << "创建时间:" << C_time << "  " << "目录大小:" << C_size << "  " << "目录对象数:" << C_number << endl;
+}
+
+class File {
+public:
+	File();
+	~File();
+	File(const File& Fi);
+	bool Isempty();
+	void Print();
+	string &Getname() {
+		return F_name;
+	}
+
+private:
+	string F_name, F_style, F_time, F_size;
+};
+
+File::File(const File& Fi) {
+	F_name = Fi.F_name;
+	F_style = Fi.F_style;
+	F_time = Fi.F_time;
+	F_size = Fi.F_size;
+}
+
+bool File::Isempty() {
+	if (F_name == "0"&&F_style == "0"&&F_time == "0"&&F_size == "0") {
+		return true;
+	}
+	else return false;
+}
+
+void File::Print() {
+	cout << "文件名称:" << F_name << "  " << "文件类型:" << F_style << "  " << "修改时间:" << F_time << "  " << "文件大小:" << F_size << endl;
+}
+
+class BiTree;
+class BiTreeNode {
+	friend class BiTree;
+public:
+	BiTreeNode() {
+		leftchild = NULL;
+		rightchild = NULL;
+		parent = NULL;
+	}
+	~BiTreeNode();
+	BiTreeNode * Left() {
+		return leftchild;
+	}
+	BiTreeNode *Right() {
+		return rightchild;
+	}
+	BiTreeNode *parent() {
+		return parent;
+	}
+	Disk & Data1() {
+		return Data1;
+	}
+	Catalog & Data2() {
+		return Data2;
+	}
+	File & Data3() {
+		return Data3;
+	}
+
+private:
+	BiTreeNode * leftchild;
+	BiTreeNode * rightchild;
+	BiTreeNode * parent;
+	Disk Data1;
+	Catalog Data2;
+	File Data3;
+};
